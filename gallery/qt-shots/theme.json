@@ -1,0 +1,455 @@
+{
+ "slicerVersion": "5.9.0-2025-10-16",
+ "style": "",
+ "font": {
+  "family": ".AppleSystemUIFont",
+  "pointSize": 13,
+  "pixelSize": -1
+ },
+ "palette": {
+  "Window": "#ececec",
+  "WindowText": "#000000",
+  "Base": "#ffffff",
+  "AlternateBase": "#f5f5f5",
+  "Text": "#000000",
+  "Button": "#ececec",
+  "ButtonText": "#000000",
+  "BrightText": "#ffffff",
+  "Highlight": "#b3d7ff",
+  "HighlightedText": "#000000",
+  "Light": "#ffffff",
+  "Midlight": "#f5f5f5",
+  "Mid": "#a9a9a9",
+  "Dark": "#bfbfbf",
+  "Shadow": "#000000",
+  "ToolTipBase": "#ffffff",
+  "ToolTipText": "#000000",
+  "PlaceholderText": "#000000",
+  "Link": "#0068da"
+ },
+ "disabled": {
+  "WindowText": "#000000",
+  "Text": "#000000",
+  "ButtonText": "#939393",
+  "Base": "#ececec",
+  "Button": "#ececec"
+ },
+ "shots": [
+  {
+   "name": "ctkCollapsibleButton",
+   "file": "ctkCollapsibleButton.png",
+   "width": 340,
+   "height": 138,
+   "dpr": 2.0,
+   "note": ""
+  },
+  {
+   "name": "ctkCollapsibleGroupBox",
+   "file": "ctkCollapsibleGroupBox.png",
+   "width": 340,
+   "height": 96,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkSliderWidget",
+   "file": "ctkSliderWidget.png",
+   "width": 340,
+   "height": 41,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkDoubleSlider",
+   "file": "ctkDoubleSlider.png",
+   "width": 340,
+   "height": 31,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkDoubleSpinBox",
+   "file": "ctkDoubleSpinBox.png",
+   "width": 340,
+   "height": 41,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkRangeWidget",
+   "file": "ctkRangeWidget.png",
+   "width": 340,
+   "height": 41,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkDoubleRangeSlider",
+   "file": "ctkDoubleRangeSlider.png",
+   "width": 340,
+   "height": 31,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkPathLineEdit",
+   "file": "ctkPathLineEdit.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkDirectoryButton",
+   "file": "ctkDirectoryButton.png",
+   "width": 340,
+   "height": 48,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkComboBox",
+   "file": "ctkComboBox.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkCheckableComboBox",
+   "file": "ctkCheckableComboBox.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkColorPickerButton",
+   "file": "ctkColorPickerButton.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkPushButton",
+   "file": "ctkPushButton.png",
+   "width": 340,
+   "height": 48,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkCheckablePushButton",
+   "file": "ctkCheckablePushButton.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkCheckBox",
+   "file": "ctkCheckBox.png",
+   "width": 340,
+   "height": 38,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkMenuButton",
+   "file": "ctkMenuButton.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkSearchBox",
+   "file": "ctkSearchBox.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkFittedTextBrowser",
+   "file": "ctkFittedTextBrowser.png",
+   "width": 340,
+   "height": 58,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkFlowLayout",
+   "file": "ctkFlowLayout.png",
+   "width": 340,
+   "height": 100,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkExpandableWidget",
+   "file": "ctkExpandableWidget.png",
+   "width": 340,
+   "height": 220,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkCoordinatesWidget",
+   "file": "ctkCoordinatesWidget.png",
+   "width": 340,
+   "height": 41,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkMatrixWidget",
+   "file": "ctkMatrixWidget.png",
+   "width": 340,
+   "height": 100,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkExpandButton",
+   "file": "ctkExpandButton.png",
+   "width": 340,
+   "height": 32,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkAxesWidget",
+   "file": "ctkAxesWidget.png",
+   "width": 340,
+   "height": 136,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkTreeComboBox",
+   "file": "ctkTreeComboBox.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkAddRemoveComboBox",
+   "file": "ctkAddRemoveComboBox.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkMenuComboBox",
+   "file": "ctkMenuComboBox.png",
+   "width": 340,
+   "height": 47,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkFontButton",
+   "file": "ctkFontButton.png",
+   "width": 340,
+   "height": 36,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkLanguageComboBox",
+   "file": "ctkLanguageComboBox.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkMaterialPropertyWidget",
+   "file": "ctkMaterialPropertyWidget.png",
+   "width": 340,
+   "height": 294,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkDateRangeWidget",
+   "file": "ctkDateRangeWidget.png",
+   "width": 340,
+   "height": 163,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkModalityWidget",
+   "file": "ctkModalityWidget.png",
+   "width": 340,
+   "height": 213,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkPathListWidget",
+   "file": "ctkPathListWidget.png",
+   "width": 340,
+   "height": 220,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkRangeSlider",
+   "file": "ctkRangeSlider.png",
+   "width": 340,
+   "height": 31,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkErrorLogWidget",
+   "file": "ctkErrorLogWidget.png",
+   "width": 340,
+   "height": 166,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkActionsWidget",
+   "file": "ctkActionsWidget.png",
+   "width": 340,
+   "height": 136,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "ctkVTKScalarsToColorsWidget",
+   "file": "ctkVTKScalarsToColorsWidget.png",
+   "width": 340,
+   "height": 196,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QPushButton",
+   "file": "QPushButton.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QToolButton",
+   "file": "QToolButton.png",
+   "width": 340,
+   "height": 35,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QCheckBox+QRadioButton",
+   "file": "QCheckBox+QRadioButton.png",
+   "width": 340,
+   "height": 63,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QLineEdit",
+   "file": "QLineEdit.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QTextEdit",
+   "file": "QTextEdit.png",
+   "width": 340,
+   "height": 100,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QSpinBox+QDoubleSpinBox",
+   "file": "QSpinBox+QDoubleSpinBox.png",
+   "width": 340,
+   "height": 41,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QComboBox",
+   "file": "QComboBox.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QSlider",
+   "file": "QSlider.png",
+   "width": 340,
+   "height": 31,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QProgressBar",
+   "file": "QProgressBar.png",
+   "width": 340,
+   "height": 40,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QGroupBox",
+   "file": "QGroupBox.png",
+   "width": 340,
+   "height": 96,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QTabWidget",
+   "file": "QTabWidget.png",
+   "width": 340,
+   "height": 100,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QListWidget",
+   "file": "QListWidget.png",
+   "width": 340,
+   "height": 106,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QTableWidget",
+   "file": "QTableWidget.png",
+   "width": 340,
+   "height": 136,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QTreeWidget",
+   "file": "QTreeWidget.png",
+   "width": 340,
+   "height": 136,
+   "dpr": 1.0,
+   "note": ""
+  },
+  {
+   "name": "QFormLayout",
+   "file": "QFormLayout.png",
+   "width": 340,
+   "height": 107,
+   "dpr": 1.0,
+   "note": ""
+  }
+ ]
+}

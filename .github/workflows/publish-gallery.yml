@@ -1,0 +1,93 @@
+# Publish the application with the Widget Gallery to this repository's GitHub Pages.
+#
+# A demonstration of the qt/ctk compatibility layer (see gallery/README.md and docs/qt-emulation.md):
+#   <pages url>/ctk-gallery.html   the real Qt/CTK widgets beside the browser layer's replicas
+#   <pages url>/gallery.html       the Widget Gallery scripted module inside the application
+#
+# The WebAssembly runtime (VTK, ITK, the Slicer libraries) is taken from the "runtime" release of
+# lassoan/SlicerWeb, as the upstream publish workflow does; only the web application and the gallery
+# are built here. Sample data is limited to MRHead, which the gallery page opens on.
+name: Publish gallery
+
+on:
+  push:
+    branches: [qt-ctk-gallery]
+    paths-ignore: ["docs/**", "**/*.md"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  RUNTIME_URL: https://github.com/lassoan/SlicerWeb/releases/download/runtime
+  SLICERWEB_WHEELS: ${{ github.workspace }}/runtime/wheels
+  SLICERWEB_EXTENSIONS: ${{ github.workspace }}/runtime/extensions
+  SLICERWEB_SAMPLE_DATA: ${{ github.workspace }}/runtime/sample-data
+  # A site of static files has no download proxy (see web/vite.assets.ts)
+  VITE_DOWNLOAD_PROXY: "0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Runtime wheels from the upstream release
+        run: |
+          mkdir -p runtime
+          curl -sSL -o runtime/wheels.zip "$RUNTIME_URL/wheels.zip"
+          curl -sSL -o runtime/extensions.zip "$RUNTIME_URL/extensions.zip"
+          unzip -q runtime/wheels.zip -d "$SLICERWEB_WHEELS"
+          unzip -q runtime/extensions.zip -d "$SLICERWEB_EXTENSIONS"
+          ls -la "$SLICERWEB_WHEELS" "$SLICERWEB_EXTENSIONS"
+
+      - name: Widget Gallery extension wheel
+        run: python3 gallery/make-gallery-wheel.py
+
+      - name: Install
+        working-directory: web
+        run: npm ci
+
+      - name: Sample data the gallery opens on
+        working-directory: web
+        run: node scripts/fetch-sample-data.mjs MRHead
+
+      - name: Build the application and the widgets bundle
+        working-directory: web
+        run: npm run build
+
+      - name: Gallery pages
+        run: gallery/install-gallery.sh web/dist/app
+
+      - name: Size of the site
+        working-directory: web/dist/app
+        run: du -sh . */ | sort -h
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web/dist/app
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

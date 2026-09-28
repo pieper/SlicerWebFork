@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WidgetGallery</class>
+ <widget class="qMRMLWidget" name="WidgetGallery">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="ctkCollapsibleButton" name="uiFileSection">
+     <property name="text">
+      <string>Loaded from a Qt Designer .ui file</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="volumeLabel">
+        <property name="text">
+         <string>Input volume:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="qMRMLNodeComboBox" name="inputSelector">
+        <property name="nodeTypes">
+         <stringlist>
+          <string>vtkMRMLScalarVolumeNode</string>
+         </stringlist>
+        </property>
+        <property name="noneEnabled">
+         <bool>true</bool>
+        </property>
+        <property name="addEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="toolTip">
+         <string>Pick the input image</string>
+        </property>
+        <property name="SlicerParameterName" stdset="0">
+         <string>inputVolume</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="thresholdLabel">
+        <property name="text">
+         <string>Threshold:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="ctkSliderWidget" name="thresholdSlider">
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="minimum">
+         <double>-100.0</double>
+        </property>
+        <property name="maximum">
+         <double>500.0</double>
+        </property>
+        <property name="value">
+         <double>100.0</double>
+        </property>
+        <property name="suffix">
+         <string> HU</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="rangeLabel">
+        <property name="text">
+         <string>Range:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="ctkRangeWidget" name="rangeWidget">
+        <property name="minimum">
+         <double>0.0</double>
+        </property>
+        <property name="maximum">
+         <double>255.0</double>
+        </property>
+        <property name="minimumValue">
+         <double>20.0</double>
+        </property>
+        <property name="maximumValue">
+         <double>200.0</double>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="nameLabel">
+        <property name="text">
+         <string>Name:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="nameEdit">
+        <property name="placeholderText">
+         <string>Typed here, echoed in the event log</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="colorLabel">
+        <property name="text">
+         <string>Color:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="ctkColorPickerButton" name="colorButton">
+        <property name="color">
+         <color>
+          <red>230</red>
+          <green>120</green>
+          <blue>40</blue>
+         </color>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0" colspan="2">
+       <widget class="QCheckBox" name="invertCheckBox">
+        <property name="text">
+         <string>Invert output (a QCheckBox from the .ui file)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="ctkCheckablePushButton" name="applyButton">
+        <property name="text">
+         <string>Apply</string>
+        </property>
+        <property name="checkBoxUserCheckable" stdset="0">
+         <bool>true</bool>
+        </property>
+        <property name="toolTip">
+         <string>Its check box means "auto-update", as in Slicer's module templates</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="2">
+       <widget class="QTabWidget" name="tabWidget">
+        <widget class="QWidget" name="tabOne">
+         <attribute name="title">
+          <string>Tab one</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="tabOneLayout">
+          <item>
+           <widget class="QLabel" name="tabOneLabel">
+            <property name="text">
+             <string>A QTabWidget page built by the .ui loader</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="tabSpinBox">
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>10</number>
+            </property>
+            <property name="value">
+             <number>3</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="tabTwo">
+         <attribute name="title">
+          <string>Tab two</string>
+         </attribute>
+         <layout class="QVBoxLayout" name="tabTwoLayout">
+          <item>
+           <widget class="ctkPathLineEdit" name="pathLineEdit">
+            <property name="nameFilters">
+             <stringlist>
+              <string>Images (*.nrrd *.nii *.nii.gz)</string>
+             </stringlist>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="unknownWidgetNote">
+            <property name="text">
+             <string>Below: a widget class the browser does not have (ctkMatrixWidget) becomes a placeholder</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="ctkMatrixWidget" name="matrixWidget"/>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>ctkCollapsibleButton</class>
+   <extends>QWidget</extends>
+   <header>ctkCollapsibleButton.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>qMRMLNodeComboBox</class>
+   <extends>QWidget</extends>
+   <header>qMRMLNodeComboBox.h</header>
+  </customwidget>
+ </customwidgets>
+ <connections>
+  <connection>
+   <sender>WidgetGallery</sender>
+   <signal>mrmlSceneChanged(vtkMRMLScene*)</signal>
+   <receiver>inputSelector</receiver>
+   <slot>setMRMLScene(vtkMRMLScene*)</slot>
+  </connection>
+ </connections>
+</ui>

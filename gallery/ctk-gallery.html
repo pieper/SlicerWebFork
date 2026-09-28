@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" data-theme="qt">
+<head>
+  <meta charset="utf-8" />
+  <title>CTK Widget Gallery: Qt beside the browser</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- SlicerWeb's widgets as custom elements, and their stylesheet; nothing else of the application -->
+  <link rel="icon" href="slicer-icon.png" />
+  <link rel="stylesheet" href="widgets/slicerweb.css" />
+  <link rel="stylesheet" href="gallery/qt-theme.css" />
+  <script src="widgets/slicerweb-widgets.js"></script>
+  <style>
+    /* the widgets stylesheet is the application's, whose shell never scrolls: this page does */
+    html, body { height: auto; min-height: 100%; overflow: auto; }
+    #page { max-width: 1500px; margin: 0 auto; padding: 16px 20px 60px; }
+    header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px 24px; margin-bottom: 8px; }
+    header h1 { font-size: 20px; margin: 0; font-weight: 600; }
+    header p { margin: 0; max-width: 900px; opacity: .8; }
+    #status { font-size: 12px; opacity: .8; }
+    #controls { display: flex; align-items: center; gap: 10px; margin-left: auto; font-size: 13px; }
+    h2 { font-size: 15px; margin: 28px 0 10px; font-weight: 600; opacity: .9; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(720px, 1fr)); gap: 16px; }
+    .card { border: 1px solid var(--card-border); border-radius: 8px; background: var(--card-bg); padding: 10px 12px 8px; }
+    .card h3 { margin: 0 0 8px; font-size: 13px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 600; }
+    .pair { display: grid; grid-template-columns: 356px 356px; gap: 14px; align-items: start; }
+    .side { min-width: 0; }
+    .side .cap { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; opacity: .6; margin-bottom: 4px; }
+    .shot { display: block; border-radius: 4px; }
+    .rep { width: 340px; padding: 8px; box-sizing: border-box; border-radius: 4px; background: var(--rep-bg); min-height: 40px; }
+    .sig { font-size: 11px; margin-top: 6px; min-height: 14px; opacity: .75; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .missing { font-size: 12px; opacity: .7; padding: 8px; }
+    .err { color: #c33; }
+    @media (max-width: 800px) { .grid { grid-template-columns: 1fr; } .pair { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div id="page">
+    <header>
+      <h1>CTK Widget Gallery</h1>
+      <p>Left: the real Qt/CTK widget, photographed inside desktop 3D Slicer on macOS (<code>gallery/ctk-screenshots.py</code>).
+        Right: the same widget built by SlicerWeb's <code>qt</code>/<code>ctk</code> Python layer, running here in Pyodide with nothing
+        else of the application, and live: use it and its signals print underneath.</p>
+      <div id="controls">
+        <label><input type="checkbox" id="theme" checked /> Qt theme (macOS palette from theme.json)</label>
+        <span id="status">loading…</span>
+      </div>
+    </header>
+    <div id="sections"></div>
+  </div>
+  <script type="module">
+    const status = document.getElementById("status");
+    const say = (t) => (status.textContent = t);
+    document.getElementById("theme").addEventListener("change", (e) => {
+      document.documentElement.dataset.theme = e.target.checked ? "qt" : "slicerweb";
+    });
+
+    const slug = (n) => n.replace(/[^A-Za-z0-9]+/g, "-");
+    const theme = await (await fetch("gallery/qt-shots/theme.json")).json();
+    const shots = theme.shots.filter((s) => !s.error);
+    const shotByName = Object.fromEntries(shots.map((s) => [s.name, s]));
+    document.title = `CTK Widget Gallery (Qt ${theme.style || "macOS"} vs SlicerWeb)`;
+
+    // Pyodide with the slicerweb wheel alone: the qt/ctk layer needs nothing of VTK or MRML
+    say("starting Pyodide…");
+    const { loadPyodide } = await import("./pyodide/pyodide.mjs");
+    const pyodide = await loadPyodide({ indexURL: new URL("./pyodide/", document.baseURI).href });
+    const wheelIndex = await (await fetch("wheels/index.json")).json();
+    const wheel = wheelIndex.packages.find((p) => p.name === "slicerweb")?.file;
+    say(`installing ${wheel}…`);
+    await pyodide.loadPackage(new URL("wheels/" + wheel, document.baseURI).href);
+    pyodide.runPython(await (await fetch("gallery/ctk-gallery.py")).text());
+    const build = pyodide.globals.get("build");
+    const replicaNames = new Set(pyodide.globals.get("names")().toJs());
+
+    const groups = [
+      ["CTK widgets: Qt beside the browser layer's replica", (s) => s.name.startsWith("ctk") && replicaNames.has(s.name)],
+      ["CTK widgets the browser layer does not have yet", (s) => s.name.startsWith("ctk") && !replicaNames.has(s.name)],
+      ["Qt widgets the CTK ones are built on", (s) => s.name.startsWith("Q")],
+    ];
+    const sections = document.getElementById("sections");
+    const cards = [];
+    for (const [title, keep] of groups) {
+      const h = document.createElement("h2");
+      h.textContent = title;
+      sections.appendChild(h);
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      sections.appendChild(grid);
+      for (const s of shots.filter(keep)) {
+        const id = "rep-" + slug(s.name);
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `<h3>${s.name}</h3>
+          <div class="pair">
+            <div class="side"><div class="cap">Qt · desktop Slicer ${theme.slicerVersion}</div>
+              <img class="shot" src="gallery/qt-shots/${s.file}" style="width:${s.width}px" alt="${s.name} in Qt" /></div>
+            <div class="side"><div class="cap">Browser · SlicerWeb qt/ctk layer</div>
+              <div class="rep" id="${id}"></div><div class="sig" id="sig-${s.name}"></div></div>
+          </div>`;
+        grid.appendChild(card);
+        cards.push([s.name, id]);
+      }
+    }
+    say("building replicas…");
+    let ok = 0;
+    for (const [name, id] of cards) {
+      const result = build(name, id);
+      const box = document.getElementById(id);
+      if (result === "ok") ok++;
+      else {
+        const note = document.createElement("div");
+        note.className = "missing" + (result.startsWith("failed") ? " err" : "");
+        note.textContent = result;
+        box.appendChild(note);
+      }
+    }
+    // the filled part of the sliders (see qt-theme.css): kept in --fill as they move
+    const fill = (el) => {
+      const min = Number(el.min || 0), max = Number(el.max || 100), v = Number(el.value);
+      el.style.setProperty("--fill", ((v - min) / (max - min || 1) * 100).toFixed(2) + "%");
+    };
+    const fillAll = () => document.querySelectorAll('input[type="range"]').forEach(fill);
+    document.addEventListener("input", (e) => { if (e.target.type === "range") fill(e.target); });
+    new MutationObserver(fillAll).observe(sections, { subtree: true, childList: true, attributes: true, attributeFilter: ["value"] });
+    fillAll();
+    say(`${ok} replicas built of ${cards.length} widgets photographed`);
+    window.ctkGallery = { pyodide, cards, ok };
+  </script>
+</body>
+</html>

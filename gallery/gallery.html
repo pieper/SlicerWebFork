@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>SlicerWeb Widget Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { margin: 0; height: 100%; background: #0b0f17; color: #cfd8e3; font: 13px/1.4 system-ui, sans-serif; }
+    #bar { height: 34px; display: flex; align-items: center; gap: 12px; padding: 0 12px; background: #131a26; border-bottom: 1px solid #263042; }
+    #bar b { color: #fff; }
+    #bar span { color: #8a9ab0; }
+    #slicer { width: 100%; height: calc(100% - 34px); border: 0; display: block; }
+  </style>
+</head>
+<body>
+  <div id="bar"><b>SlicerWeb Widget Gallery</b><span id="status">starting the application…</span>
+    <span>Embeds the application (see docs/embedding.md), installs the WidgetGallery extension wheel and opens its module panel.</span></div>
+  <iframe id="slicer" src="./?extensions=WidgetGallery&sample=MRHead"></iframe>
+  <script>
+    const frame = document.getElementById("slicer");
+    const status = document.getElementById("status");
+    const poll = () => {
+      const app = frame.contentWindow?.slicerWeb;
+      if (!app || app.store.status !== "ready") { status.textContent = "starting the application…"; return setTimeout(poll, 300); }
+      if (!app.store.modules.some((m) => m.name === "WidgetGallery")) { status.textContent = "installing the WidgetGallery extension…"; return setTimeout(poll, 300); }
+      app.store.activeModule = "WidgetGallery";
+      status.textContent = "ready: the Widget Gallery module is open in the module panel on the right";
+    };
+    frame.addEventListener("load", poll);
+  </script>
+</body>
+</html>
