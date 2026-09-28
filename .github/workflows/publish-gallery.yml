@@ -61,9 +61,14 @@ jobs:
         working-directory: web
         run: npm ci
 
+      # MRHead is what gallery.html opens on. The runtime also asks a static site for the map of mirrored
+      # sample data (sample-data/mirror.json, see web/scripts/mirror-sample-data.mjs); here nothing is
+      # mirrored, so the map is empty rather than a 404 in the console.
       - name: Sample data the gallery opens on
         working-directory: web
-        run: node scripts/fetch-sample-data.mjs MRHead
+        run: |
+          node scripts/fetch-sample-data.mjs MRHead
+          echo '{}' > "$SLICERWEB_SAMPLE_DATA/mirror.json"
 
       - name: Build the application and the widgets bundle
         working-directory: web
